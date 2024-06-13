@@ -54,7 +54,6 @@ dialog.addEventListener("close", () => {
     if (dialog.returnValue === "cancel") {
         return;
     } else if (dialog.returnValue === "confirm") {
-        console.log("hello")
         addBookToLibrary(titleBox.value, authorBox.value, pagesBox.value, statusBox.value);
         updateDisplay();
     };
