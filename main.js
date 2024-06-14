@@ -17,6 +17,15 @@ addBookToLibrary('Harry Potter', 'J.K Rowling', '800', 'not read');
 
 const tableBody = document.querySelector("tbody");
 
+function deleteBook (bookName) {
+    myLibrary.forEach(book => {
+        if (book.title === bookName) {
+            const index = myLibrary.indexOf(book);
+            myLibrary.splice(index, 1);
+        };
+    });
+};
+
 function updateDisplay () {
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.lastChild);
@@ -29,6 +38,17 @@ function updateDisplay () {
             const td = document.createElement("td");
             td.textContent = val;
             tr.appendChild(td);
+        });
+
+        const td = document.createElement("td");
+        const deleteBtn = document.createElement("button");
+        tr.appendChild(td);
+        td.appendChild(deleteBtn);
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", (e) => {
+            console.log(e.target)
+            deleteBook(e.target.parentElement.parentElement.firstChild.textContent);
+            updateDisplay();
         });
     });
 };
