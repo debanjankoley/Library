@@ -41,19 +41,20 @@ function updateDisplay () {
         });
 
         const td = document.createElement("td");
-        const deleteBtn = document.createElement("button");
+        const btn = document.createElement("button");
         tr.appendChild(td);
-        td.appendChild(deleteBtn);
-        deleteBtn.textContent = "Delete";
-        deleteBtn.addEventListener("click", (e) => {
-            console.log(e.target)
-            deleteBook(e.target.parentElement.parentElement.firstChild.textContent);
-            updateDisplay();
-        });
+        td.appendChild(btn);
+        btn.textContent = "Delete";
+        btn.classList.add("deleteBtn");
     });
 };
 
-updateDisplay();
+deleteBtn = document.querySelector(".deleteBtn");
+deleteBtn.addEventListener("click", (e) => {
+    console.log(e.target)
+    deleteBook(e.target.parentElement.parentElement.firstChild.textContent);
+    updateDisplay();
+});
 
 const showButton = document.getElementById("showDialog");
 const dialog = document.querySelector("dialog");
@@ -78,3 +79,5 @@ dialog.addEventListener("close", () => {
         updateDisplay();
     };
 });
+
+updateDisplay();
