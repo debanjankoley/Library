@@ -10,10 +10,7 @@ function Book(title, author, pages, status) {
 function addBookToLibrary(title, author, pages, status) {
     let book = new Book(title, author, pages, status);
     myLibrary.push(book);
-}
-
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', '295', 'read');
-addBookToLibrary('Harry Potter', 'J.K Rowling', '800', 'not read');
+};
 
 const tableBody = document.querySelector("tbody");
 
@@ -41,20 +38,31 @@ function updateDisplay () {
         });
 
         const td = document.createElement("td");
-        const btn = document.createElement("button");
+        const deleteBtn = document.createElement("button");
         tr.appendChild(td);
-        td.appendChild(btn);
-        btn.textContent = "Delete";
-        btn.classList.add("deleteBtn");
+        td.appendChild(deleteBtn);
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", (e) => {
+            deleteBook(e.target.parentElement.parentElement.firstChild.textContent);
+            updateDisplay();
+        });
+
+        const td2 = document.createElement("td");
+        const changeBtn = document.createElement("button");
+        tr.appendChild(td2);
+        td2.appendChild(changeBtn);
+        changeBtn.textContent = "Change";
+        changeBtn.addEventListener("click", (e) => {
+            nameOfBook = e.target.parentElement.parentElement.firstChild.textContent;
+            myLibrary.forEach(book => {
+                if (book.title === nameOfBook) {
+                    book.changeStatus()
+                };
+            });
+            updateDisplay();
+        });
     });
 };
-
-deleteBtn = document.querySelector(".deleteBtn");
-deleteBtn.addEventListener("click", (e) => {
-    console.log(e.target)
-    deleteBook(e.target.parentElement.parentElement.firstChild.textContent);
-    updateDisplay();
-});
 
 const showButton = document.getElementById("showDialog");
 const dialog = document.querySelector("dialog");
@@ -80,4 +88,10 @@ dialog.addEventListener("close", () => {
     };
 });
 
+Book.prototype.changeStatus = function () {
+    this.status = this.status === "read" ? "not read" : "read";
+}
+
+addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', '295', 'read');
+addBookToLibrary('Harry Potter', 'J.K Rowling', '800', 'not read');
 updateDisplay();
