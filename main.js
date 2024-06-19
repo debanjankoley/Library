@@ -85,6 +85,7 @@ dialog.addEventListener("close", () => {
     } else if (dialog.returnValue === "confirm") {
         addBookToLibrary(titleBox.value, authorBox.value, pagesBox.value, statusBox.value);
         updateDisplay();
+        dialog.returnValue = "";
     };
 });
 
